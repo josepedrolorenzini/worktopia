@@ -1,8 +1,25 @@
 <?php
 
 require __DIR__ . '/../helpers.php'; // Include helper
-
 //// creating the routers
+require basePath('Router.php');
+// database class
+require basePath('Database.php');
+
+$config = require basePath('config/db.php');
+
+// instantiate the router
+$router = new Router() ;
+
+// calling routes
+$routes = require basePath('routes.php') ;
+
+// GET current URI and HTTP methods
+$uri    = parse_url($_SERVER['REQUEST_URI'] , PHP_URL_PATH );
+$method = $_SERVER['REQUEST_METHOD'] ;
+
+$router->route($uri, $method);
+
 
 /// all routes
 //$routes = [
@@ -14,7 +31,7 @@ require __DIR__ . '/../helpers.php'; // Include helper
 
 
 //// getting the current uri page path
-$uri = $_SERVER['REQUEST_URI'];
+//$uri = $_SERVER['REQUEST_URI'];
 //
 //// inspectAndDie($uri);
 //if (array_key_exists($uri, $routes)) {
@@ -25,7 +42,9 @@ $uri = $_SERVER['REQUEST_URI'];
 //    exit;
 //}
 //
-require basePath('router.php');
+
+
+
 
 //loadView("home")    ;
 //die;
